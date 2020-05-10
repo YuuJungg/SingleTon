@@ -1,15 +1,18 @@
 
 public class ExampleClass {
 	// Instance
-	// instance 라는 전역변수 선언하는데 static으로 인스턴스화 하지 않고 사용 가능
-	// 하지만 접근 제한자가 private로 되어 있어 직접적인 접근 불가능	
-	private static ExampleClass instance = new ExampleClass();
+	private static ExampleClass instance;
 	
 	// private construct
-	// 생성자도 private로 되어 있어 new를 통한 객체 생성도 불가능
 	private ExampleClass() {}
 	
-	// 결국 getInstance메서드로 해당 인스턴스 얻을 수 있게 된다
+	// static 블럭을 사용할 경우 클래스가 로딩될 때 한번만 실행하게 되는 특성 사용
+	// 하지만 인스턴스가 사용되는 시적ㅁ이 아닌 클래스 로딩 시점에 실행 된다.
+	static {
+		try { instance = new ExampleClass();}
+		catch(Exception e) { throw new RuntimeException("instance 만들기 실패. 에러  = " +e.getMessage());}
+	}
+	
 	public static ExampleClass getInstance() {
 		return instance;
 	}
